@@ -1,6 +1,11 @@
 import discord
 from discord.ext import tasks
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 # Your schedule
 schedule = {
@@ -52,7 +57,7 @@ async def check_schedule():
             if cls["end"] == current_time:
                 if i + 1 < len(schedule[day]):
                     next_class = schedule[day][i + 1]
-                    user = await client.fetch_user(478794727232241664)  # Replace with your Discord user ID
+                    user = await client.fetch_user(478794727232241664)
                     if last_message:
                         await last_message.delete()
                     last_message = await user.send(f"Your next class is {next_class['class']} at {next_class['start']} in {next_class['location']}")
@@ -62,4 +67,4 @@ async def on_ready():
     print(f'We have logged in as {client.user}')
     check_schedule.start()
 
-client.run('MTA4MjE5NjAxMjQ4MDg2NDMwOA.GehZX3.cf18n0qPAjsLD9aqFG7TtVOpYSX8R0XIgeP0B0')  # Replace with your bot token
+client.run(TOKEN)

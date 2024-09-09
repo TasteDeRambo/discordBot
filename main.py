@@ -3,6 +3,11 @@ from discord.ext import commands
 import requests
 from bs4 import BeautifulSoup
 import asyncio
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix='!', intents=intents)
@@ -42,4 +47,4 @@ async def on_member_update(before, after):
 async def on_ready():
     bot.loop.create_task(search_steam_sales())
 
-bot.run('MTA4MjE5NjAxMjQ4MDg2NDMwOA.GehZX3.cf18n0qPAjsLD9aqFG7TtVOpYSX8R0XIgeP0B0')
+bot.run(TOKEN)
